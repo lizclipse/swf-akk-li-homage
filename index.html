@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <title>swf</title>
+    <!-- Taken straight from the archive -->
+    <style type="text/css">
+      body {
+        background-image: url(/bg3.png);
+        baclground-attachment: fixed;
+      }
+
+      .swf {
+        padding: 0;
+        border: solid thin #ccc;
+        box-shadow: 0px 0px 8px #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        overflow: hidden;
+        height: 620px;
+        text-align: center;
+        width: 800px;
+        margin-top: -310px;
+        margin-left: -400px;
+      }
+      a,
+      input {
+        font-family: Gotham, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: #fff;
+        font-style: normal;
+        background-color: rgba(0, 0, 0, 0.6);
+        border-radius: 5px;
+        border: none;
+        display: block;
+        padding: 5px 8px 5px 8px;
+        width: 200px;
+        height: 16px;
+        position: absolute;
+        text-align: center;
+        text-decoration: none;
+        top: 50%;
+        left: 50%;
+        margin-top: 340px;
+        margin-bottom: 20px;
+        margin-left: -100px;
+        font-size: 12px;
+        transition: background-color 0.5s;
+      }
+      input {
+        margin-top: 380px !important;
+      }
+
+      input:hover {
+        cursor: text;
+      }
+
+      a:hover,
+      input:focus {
+        background-color: rgba(0, 0, 0, 0.7);
+        outline: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="swf">
+      <embed id="embed" src="/swf/1rave.swf" height="620px" width="800px" />
+    </div>
+    <a href=".">Next Random</a>
+    <input
+      type="text"
+      id="dl"
+      onclick="SelectAll('dl');"
+      value="http://swf.akk.li/deathnote"
+      readonly=""
+    />
+
+    <!-- Need to emulate flash to make the original swfs work -->
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  </body>
+</html>
