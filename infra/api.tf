@@ -1,5 +1,6 @@
 locals {
   dist_zip = "${path.module}/../dist.zip"
+  content  = "${path.module}/../content"
 
   tags = {
     Name = "swf.akk.li"
@@ -28,6 +29,20 @@ module "lambda_function" {
   tags = local.tags
 }
 
+module "s3_bucket" {
+  source = "terraform-aws-modules/s3-bucket/aws"
+}
+
+resource "aws_s3_object" "content" {
+  for_each = fileset(local.content, "**")
+
+  acl    = "public-read"
+  bucket = module.s3_bucket.s3_bucket_id
+  key    = each.value
+  source = "${local.content}/${each.value}"
+  etag   = filemd5("${local.content}/${each.value}")
+}
+
 module "api_gateway" {
   source = "terraform-aws-modules/apigateway-v2/aws"
 
@@ -50,6 +65,12 @@ module "api_gateway" {
 
   # Routes and integrations
   integrations = {
+    "GET /static/{file+}" = {
+      integration_uri    = "https://${module.s3_bucket.s3_bucket_bucket_domain_name}/{file}"
+      integration_type   = "HTTP_PROXY"
+      integration_method = "ANY"
+    }
+
     "GET /{swf}" = {
       lambda_arn = module.lambda_function.lambda_function_arn
       payload_format_version = "2.0"
