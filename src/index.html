@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <title>swf</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico" />
+    <title>Random swf (%SWF%)</title>
     <!-- Taken straight from the archive -->
     <style type="text/css">
       body {
-        background-image: url(/bg3.png);
+        background-image: url(/static/bg3.png);
         baclground-attachment: fixed;
       }
 
@@ -63,21 +63,62 @@
         outline: 0;
       }
     </style>
+    <script type="text/javascript">
+      function SelectAll(id) {
+        document.getElementById(id).focus();
+        document.getElementById(id).select();
+      }
+    </script>
+    <!-- %STYLES% -->
   </head>
   <body>
     <div class="swf">
-      <embed id="embed" src="/swf/1rave.swf" height="620px" width="800px" />
+      <embed
+        id="embed"
+        src="/static/swf/%SWF%.swf"
+        height="620px"
+        width="800px"
+      />
     </div>
-    <a href=".">Next Random</a>
+    <a id="lzp-rng" href=".">Next Random</a>
     <input
       type="text"
       id="dl"
       onclick="SelectAll('dl');"
-      value="http://swf.akk.li/deathnote"
+      value="https://swf.lzp.se/%SWF%"
       readonly=""
     />
 
     <!-- Need to emulate flash to make the original swfs work -->
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script type="text/javascript">
+      window.RufflePlayer = window.RufflePlayer || {};
+      window.RufflePlayer.config = {
+        // Options affecting the whole page
+        // publicPath: undefined,
+        // polyfills: true,
+
+        // Options affecting files only
+        // autoplay: "auto",
+        // unmuteOverlay: "visible",
+        // backgroundColor: null,
+        // wmode: "window",
+        // letterbox: "fullscreen",
+        warnOnUnsupportedContent: false,
+        // contextMenu: true,
+        // showSwfDownload: false,
+        // upgradeToHttps: window.location.protocol === "https:",
+        // maxExecutionDuration: { secs: 15, nanos: 0 },
+        // logLevel: "error",
+        // base: null,
+        // menu: true,
+        // salign: "",
+        // scale: "showAll",
+        // quality: "high",
+        // preloader: true,
+      };
+
+      console.log('Source: https://github.com/lizclipse/swf-akk-li-homage')
+    </script>
   </body>
 </html>

@@ -31,6 +31,16 @@ module "lambda_function" {
 
 module "s3_bucket" {
   source = "terraform-aws-modules/s3-bucket/aws"
+
+  cors_rule = [
+    {
+      allowed_methods = ["GET"]
+      allowed_origins = ["https://${var.domain}"]
+      allowed_headers = ["*"]
+      expose_headers  = ["ETag"]
+      max_age_seconds = 3000
+    }
+  ]
 }
 
 resource "aws_s3_object" "content" {
