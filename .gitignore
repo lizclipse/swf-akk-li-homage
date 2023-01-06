@@ -5,7 +5,7 @@ dist/
 dist.zip
 
 .terraform/
+*.tfbackend
 *.tfvars
 *.tfvars.json
-infra/backend.tf
 !infra/template.tfvars
