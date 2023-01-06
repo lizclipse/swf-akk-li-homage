@@ -40,6 +40,7 @@ jobs:
         id: fmt
         run: terraform fmt -check
         continue-on-error: true
+        working-directory: ./infra
 
       - name: Terraform Init
         id: init
@@ -48,14 +49,17 @@ jobs:
           AWS_BUCKET_KEY_NAME: ${{ secrets.AWS_BUCKET_KEY_NAME }}
           AWS_TABLE_NAME: ${{ secrets.AWS_TABLE_NAME }}
         run: terraform init -backend-config="bucket=${AWS_BUCKET_NAME}" -backend-config="key=${AWS_BUCKET_KEY_NAME}" -backend-config="region=${AWS_REGION}" -backend-config="dynamodb_table=${AWS_TABLE_NAME}"
+        working-directory: ./infra
 
       - name: Terraform Validate
         id: validate
         run: terraform validate -no-color
+        working-directory: ./infra
 
       - name: Terraform Plan
         id: plan
         run: terraform plan -no-color
+        working-directory: ./infra
         if: github.event_name == 'pull_request'
         continue-on-error: true
 
@@ -66,3 +70,4 @@ jobs:
       - name: Terraform Apply
         if: github.ref == 'refs/heads/master' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
+        working-directory: ./infra
