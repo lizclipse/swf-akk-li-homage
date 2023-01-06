@@ -15,7 +15,7 @@ module "lambda_function" {
   handler       = "index.handler"
   runtime       = "nodejs18.x"
 
-  publish = true
+  publish                = true
   create_package         = false
   local_existing_package = local.dist_zip
 
@@ -82,12 +82,12 @@ module "api_gateway" {
     }
 
     "GET /{swf}" = {
-      lambda_arn = module.lambda_function.lambda_function_arn
+      lambda_arn             = module.lambda_function.lambda_function_arn
       payload_format_version = "2.0"
     }
 
     "$default" = {
-      lambda_arn = module.lambda_function.lambda_function_arn
+      lambda_arn             = module.lambda_function.lambda_function_arn
       payload_format_version = "2.0"
     }
   }

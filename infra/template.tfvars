@@ -1,3 +1,3 @@
-region = ""
-domain = ""
+region      = ""
+domain      = ""
 base_domain = ""
